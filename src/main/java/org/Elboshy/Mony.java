@@ -7,31 +7,31 @@ public class Mony {
     private float Visa; // الفيزا
     private float Total;
 
-    //Scanner s = new Scanner(System.in);
+
     Mony(String name) {
         this.Name = name;
     }
-//    public float getOriinal() {
-//        return Oriinal;
-//    }
+    public float getOriinal() {
+        return Oriinal;
+    }
 
     public void setOriinal(float Oriinal) {
         this.Oriinal = Oriinal;
         setTotal();
     }
 
-//    public float getVodafone() {
-//        return Vodafone;
-//    }
+    public float getVodafone() {
+        return Vodafone;
+    }
 
     public void setVodafone(float Vodafone) {
         this.Vodafone = Vodafone;
         setTotal();
     }
 
-//    public float getVisa() {
-//        return Visa;
-//    }
+    public float getVisa() {
+        return Visa;
+    }
 
     public void setVisa(float Visa) {
         this.Visa = Visa;
