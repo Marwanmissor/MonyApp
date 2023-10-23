@@ -6,8 +6,9 @@ public class Mony {
     private float Vodafone; // فودافون كاش
     private float Visa; // الفيزا
     private float Total;
+
     //Scanner s = new Scanner(System.in);
-    Mony(String name){
+    Mony(String name) {
         this.Name = name;
     }
 //    public float getOriinal() {
@@ -51,12 +52,14 @@ public class Mony {
 
     @Override
     public String toString() {
-        return "Mony{" +
-                "Name='" + Name + '\'' +
-                ", Oriinal=" + Oriinal +
-                ", Vodafone=" + Vodafone +
-                ", Visa=" + Visa +
-                ", Total=" + Total +
-                '}';
+        if (this.Visa == 0 && this.Vodafone != 0) {
+            return " - فرع " + Name + "\n " + " - اجمالي الدخل اليومي قبل الخصم لفرع  " + Name +" = " + Oriinal + "\n" + " - فودافون كاش " + Name + " = " + Vodafone + "\n" + " - الاجمالي بعد الطرح = " + Total + "\n =========================================================== \n";
+        } else if (this.Visa != 0 && this.Vodafone == 0) {
+            return " - فرع " + Name + "\n " + " - اجمالي الدخل اليومي قبل الخصم لفرع " + Name +" = " + Oriinal + "\n" + " - فيزا " + Name + " = " + Visa + "\n" + " - الاجمالي بعد الطرح = " + Total+ "\n =========================================================== \n";
+        } else if (this.Visa == 0 && this.Vodafone == 0) {
+            return " - فرع " + Name + "\n " + " - اجمالي الدخل اليومي لفرع " + Name +" = " + Total+ "\n =========================================================== \n";
+        } else {
+            return " - فرع " + Name + "\n " + " - اجمالي الدخل اليومي قبل الخصم لفرع " + Name +" = " + Oriinal + "\n" + " - فيزا " + Name + " = " + Visa + "\n" + " - فودافون كاش " + Name + " = " + Vodafone + "\n" + " - الاجمالي بعد الطرح = " + Total+ "\n =========================================================== \n";
+        }
     }
 }
