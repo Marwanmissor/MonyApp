@@ -1,15 +1,15 @@
 package org.Elboshy;
 
 import java.io.*;
-
+import java.time.LocalDate;
 import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws FileNotFoundException , IOException {
         char ans;
+        LocalDate d = LocalDate.now();
         Scanner t = new Scanner(System.in);
-        File f = new File("test.txt");
+        File f = new File("ايراد يوم " + d.minusDays(1) +".txt");
         f.createNewFile();
-        FileReader fr = new FileReader(f);
         FileWriter fw = new FileWriter(f);
 
         Mony Helwan1 = new Mony("حلوان 1");
@@ -21,19 +21,19 @@ public class Main {
         Orig(Hhelwan);
 
         while (true) {
-            System.out.print("\n - Visa Or Vodafone Cash ? (Y\\N)");
+            System.out.print("\n فيزا او فودافون كاش ؟  (Y\\N)");
             ans = t.next().charAt(0);
 
             if (ans == 'y' || ans == 'Y') {
-                VCashandVisa("Helwan 1", Helwan1);
-                VCashandVisa("Helwan 2", Helwan2);
-                VCashandVisa("Hadayek Helwan", Hhelwan);
+                VCashandVisa("حلوان 1", Helwan1);
+                VCashandVisa("حلوان 2", Helwan2);
+                VCashandVisa("حدايق حلوان", Hhelwan);
                 break;
             } else if (ans == 'n' || ans == 'N') {
-                System.out.print("\n- OK NO Visa Or Vodafone Cash\n");
+                System.out.print("\n تمام مفيش فيزا ولا فودافون كاش \n");
                 break;
             } else {
-                System.out.println("\n- Wrong Choice");
+                System.out.println("\n- اختيار خاطئ من فضلك اختار من جديد");
             }
         }
         fw.write(Helwan1.toString());
@@ -46,18 +46,18 @@ public class Main {
     public static void VCashandVisa (String name ,Mony h ){
         float get;
         Scanner s = new Scanner(System.in);
-        System.out.print("\n - " + name + " Visa : ");
+        System.out.print("\n - " + name + " فيزا : ");
         while (!s.hasNextFloat()) {
-            System.out.println("Invalid input. Please enter a valid float value.");
-            System.out.print("\n - " + name + " Visa : ");
+            System.out.println("ادخال خاطئ من فضلك ادخل ارقام صحيحه او عشريه فقط ");
+            System.out.print("\n - " + name + " فيزا : ");
             s.next();
         }
         get = s.nextFloat();
         h.setVisa(get);
-        System.out.print("\n - " + name + " Vodafone Cash : ");
+        System.out.print("\n - " + name + " فودافون كاش : ");
         while (!s.hasNextFloat()) {
-            System.out.println("Invalid input. Please enter a valid float value.");
-            System.out.print("\n - " + name + " Vodafone Cash : ");
+            System.out.println("ادخال خاطئ من فضلك ادخل ارقام صحيحه او عشريه فقط ");
+            System.out.print("\n - " + name + " فودافون كاش : ");
             s.next();
         }
         get = s.nextFloat();
@@ -76,24 +76,26 @@ public class Main {
         H.setOriinal(m);
     }
     private static String allTotal(Mony h1 , Mony h2 , Mony h3){
-        if (h1.getVisa() + h2.getVisa() + h3.getVisa() == 0 && h1.getVodafone() + h2.getVodafone() + h3.getVodafone() != 0) {
-            return "\n" + " - اجمالي كل الفروع قبل الخصم = " + (h1.getOriinal() + h2.getOriinal() + h3.getOriinal()) + "\n"
-                    + " اجمالي فودافون كاش = " + (h1.getVodafone() + h2.getVodafone() + h3.getVodafone()) + "\n"
-                    + " - اجمالي الكل بعد الطرح = " + (h1.getTotal() + h2.getTotal() + h3.getTotal());
-        } else if (h1.getVisa() + h2.getVisa() + h3.getVisa() != 0 && h1.getVodafone() + h2.getVodafone() + h3.getVodafone() == 0) {
-            return "\n" +  " - اجمالي كل الفروع قبل الخصم = " + (h1.getOriinal() + h2.getOriinal() + h3.getOriinal()) + "\n"
-                    + "اجمالي الفيزا = " + (h1.getVisa() + h2.getVisa() + h3.getVisa()) + "\n"
-                    + " - اجمالي الكل بعد الطرح = "+(h1.getTotal() + h2.getTotal() + h3.getTotal());
-        } else if (h1.getVisa() + h2.getVisa() + h3.getVisa() == 0 && h1.getVodafone() + h2.getVodafone() + h3.getVodafone() == 0) {
-            return "\n" +  " - اجمالي كل الفروع قبل الخصم = " + (h1.getOriinal() + h2.getOriinal() + h3.getOriinal()) + "\n"
-                    + " - اجمالي الكل بعد الطرح = "+(h1.getTotal() + h2.getTotal() + h3.getTotal());
-        }
-        else {
-            return "\n" +  " - اجمالي كل الفروع قبل الخصم = " + (h1.getOriinal() + h2.getOriinal() + h3.getOriinal()) + "\n"
-                    + "اجمالي الفيزا = " + (h1.getVisa() + h2.getVisa() + h3.getVisa()) + "\n"
-                    + " اجمالي فودافون كاش = " + (h1.getVodafone() + h2.getVodafone() + h3.getVodafone()) + "\n"
-                    + " - اجمالي الكل بعد الطرح = "+(h1.getTotal() + h2.getTotal() + h3.getTotal());
-        }
+        float TotalVisa = h1.getVisa() + h2.getVisa() + h3.getVisa() ,
+                TotalOrinal = h1.getOriinal() + h2.getOriinal() + h3.getOriinal(),
+                    TotalVoda = h1.getVodafone() + h2.getVodafone() + h3.getVodafone(),
+                        Ttotal = h1.getTotal() + h2.getTotal() + h3.getTotal();
+        if (TotalVisa == 0 && TotalVoda == 0){
+            return " - اجمالي الدخل اليومي للفروع = " + Ttotal;
+        } else if (TotalVisa != 0 &&  TotalVoda == 0) {
+            return " - اجمالي الدخل اليومي للفروع = " + TotalOrinal
+                    + "\n - اجمالي الفيزا = " + TotalVisa
+                    +"\n - الاجمالي بعد الطرح = " + Ttotal;
+        } else if (TotalVisa == 0 && TotalVoda != 0) {
+            return " - اجمالي الدخل اليومي للفروع = " + TotalOrinal
+                    + "\n - اجمالي فودافون كاش = " + TotalVoda
+                    +"\n - الاجمالي بعد الطرح = " + Ttotal;
+        }else {
+            return " - اجمالي الدخل اليومي للفروع = " + TotalOrinal
+                    + "\n - اجمالي الفيزا = " + TotalVisa
+                    +"\n - اجمالي فودافون كاش = " + TotalVoda
+                    +"\n - الاجمالي بعد الطرح = " + Ttotal;
         }
     }
+}
 
